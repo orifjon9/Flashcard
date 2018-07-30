@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Flashcard.Models.Context
 {
-	public class FlashcardContext : DbContext
+	public class FlashcardContext : DbContext, IFlashcardContext
 	{
 		public FlashcardContext(DbContextOptions<FlashcardContext> options) : base(options)
 		{
