@@ -1,8 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RootNamespace>Flashcard.Models</RootNamespace>
+	<TargetFramework>netcoreapp2.1</TargetFramework>
+	<RootNamespace>Flashcard.Models</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+	  <PackageReference Include="NSwag.AspNetCore" Version="11.17.21" />
+	  <PackageReference Include="NJsonSchema" Version="9.10.64" />
+  </ItemGroup>
 
 </Project>
