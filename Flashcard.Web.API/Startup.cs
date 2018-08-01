@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Flashcard.Models.Context;
+using Flashcard.Repositories;
+using Flashcard.Repositories.Persistence;
 
 namespace Flashcard.Web.API
 {
@@ -29,6 +31,7 @@ namespace Flashcard.Web.API
         {
 			services.AddDbContext<FlashcardContext>(opt => opt.UseInMemoryDatabase("Flashcard"));
 
+			services.AddScoped<ICardRepository, CardRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

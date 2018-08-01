@@ -1,5 +1,6 @@
 ﻿using Flashcard.Models;
 using Flashcard.Models.Context;
+using Flashcard.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,18 @@ namespace Flashcard.Web.API.Controllers
 	[ApiController]
 	public class CardsController : ControllerBase
 	{
-		private readonly FlashcardContext _context;
+		private readonly ICardRepository _repository;
 
-		public CardsController(FlashcardContext context)
+		public CardsController(ICardRepository repository)
 		{
-			this._context = context;
+			this._repository = repository;
 		}
 
 		// GET api/cards
 		[HttpGet]
 		public ActionResult Get()
 		{
-			return Ok(_context.Cards.ToList());
+			return Ok(_repository.GetAll());
 		}
 
 		// Get api/cards/{id}
@@ -32,7 +33,7 @@ namespace Flashcard.Web.API.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<Card>> GetById(int id)
 		{
-			var card = await _context.Cards.FindAsync(id);
+			var card = await _repository.GetAsync(id);
 			if(card == null)
 			{
 				return NotFound();
@@ -43,8 +44,8 @@ namespace Flashcard.Web.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody]Card item)
 		{
-			await _context.Cards.AddAsync(item);
-			await _context.SaveChangesAsync();
+			await _repository.AddAsync(item);
+			await _repository.CommitAsync();
 
 			return CreatedAtRoute("GetCard", new { id = item.Id }, item);
 		}
@@ -54,7 +55,7 @@ namespace Flashcard.Web.API.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult> Update(int id, [FromBody] Card item)
 		{
-			var card = await _context.Cards.FindAsync(id);
+			var card = await _repository.GetAsync(id);
 			if (card == null)
 			{
 				return NotFound();
@@ -62,7 +63,7 @@ namespace Flashcard.Web.API.Controllers
 
 			card.Name = item.Name;
 			card.Description = item.Description;
-			await _context.SaveChangesAsync();
+			await _repository.CommitAsync();
 
 			return NoContent();
 		}
@@ -72,14 +73,14 @@ namespace Flashcard.Web.API.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult> Delete(int id)
 		{
-			var card = await _context.Cards.FindAsync(id);
+			var card = await _repository.GetAsync(id);
 			if (card == null)
 			{
 				return NotFound();
 			}
 
-			_context.Cards.Remove(card);
-			await _context.SaveChangesAsync();
+			_repository.Delete(card);
+			await _repository.CommitAsync();
 
 			return NoContent();
 		}

@@ -22,9 +22,9 @@ namespace Flashcard.Repositories.Persistence
 			_dbContext.Set<TEntity>().Add(entity);
 		}
 
-		public async void AddAsync(TEntity entity)
+		public Task AddAsync(TEntity entity)
 		{
-			await _dbContext.Set<TEntity>().AddAsync(entity);
+			return _dbContext.Set<TEntity>().AddAsync(entity);
 		}
 
 		public void Commit()
@@ -61,6 +61,7 @@ namespace Flashcard.Repositories.Persistence
 		{
 			_dbContext.Set<TEntity>().Update(entity);
 		}
+
 		public void Delete(TEntity entity)
 		{
 			_dbContext.Set<TEntity>().Remove(entity);

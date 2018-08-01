@@ -15,7 +15,7 @@ namespace Flashcard.Repositories
 		Task<TEntity> GetAsync(int id);
 
 		void Add(TEntity entity);
-		void AddAsync(TEntity entity);
+		Task AddAsync(TEntity entity);
 		void Update(TEntity entity);
 		void Delete(TEntity entity);
 

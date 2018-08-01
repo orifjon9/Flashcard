@@ -19,11 +19,10 @@ namespace Flashcard.Repositories.Persistence
 		{
 			if (_dbContext.Cards.Count() == 0)
 			{
-				_dbContext.Cards.AddRangeAsync(
-				new Card() { Name = "AA", Description = "AA AA" },
-				new Card() { Name = "BB", Description = "BB BB" });
+				this.AddAsync(new Card() { Name = "AA", Description = "AA AA" });
+				this.AddAsync(new Card() { Name = "BB", Description = "BB BB" });
 				// save
-				_dbContext.SaveChangesAsync();
+				this.CommitAsync();
 			}
 		}
 	}

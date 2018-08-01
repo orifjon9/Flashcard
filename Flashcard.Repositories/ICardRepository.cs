@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Flashcard.Repositories
 {
-    interface ICardRepository: IRepository<Card>
+    public interface ICardRepository: IRepository<Card>
     {
     }
 }
