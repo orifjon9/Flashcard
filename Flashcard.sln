@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Web.API", "Flashcard.Web.API\Flashcard.Web.API.csproj", "{2EE2183D-8A28-4AD7-8015-330D7AFA04B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcard.Models", "Flashcard.Models\Flashcard.Models.csproj", "{31F94464-B045-4AD2-B1B0-E61288C1D54C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Models", "Flashcard.Models\Flashcard.Models.csproj", "{31F94464-B045-4AD2-B1B0-E61288C1D54C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcard.Repositories", "Flashcard.Repositories\Flashcard.Repositories.csproj", "{514F81C7-535D-4955-9B39-94E55A75A197}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{31F94464-B045-4AD2-B1B0-E61288C1D54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31F94464-B045-4AD2-B1B0-E61288C1D54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31F94464-B045-4AD2-B1B0-E61288C1D54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{514F81C7-535D-4955-9B39-94E55A75A197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{514F81C7-535D-4955-9B39-94E55A75A197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{514F81C7-535D-4955-9B39-94E55A75A197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{514F81C7-535D-4955-9B39-94E55A75A197}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

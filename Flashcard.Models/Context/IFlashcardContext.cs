@@ -7,6 +7,6 @@ namespace Flashcard.Models.Context
 {
     public interface IFlashcardContext
     {
-		DbSet<CardItem> CardItems { get; set; }
+		DbSet<Card> Cards { get; set; }
 	}
 }

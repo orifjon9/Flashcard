@@ -11,6 +11,6 @@ namespace Flashcard.Models.Context
 		{
 		}
 
-		public DbSet<CardItem> CardItems { get; set; }
+		public DbSet<Card> Cards { get; set; }
 	}
 }

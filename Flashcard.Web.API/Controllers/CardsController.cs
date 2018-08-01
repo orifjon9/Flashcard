@@ -17,23 +17,22 @@ namespace Flashcard.Web.API.Controllers
 		public CardsController(FlashcardContext context)
 		{
 			this._context = context;
-			this.LoadDefaultItems();
 		}
 
 		// GET api/cards
 		[HttpGet]
 		public ActionResult Get()
 		{
-			return Ok(_context.CardItems.ToList());
+			return Ok(_context.Cards.ToList());
 		}
 
 		// Get api/cards/{id}
 		[HttpGet("{id}", Name = "GetCard")]
-		[ProducesResponseType(typeof(CardItem), 200)]
+		[ProducesResponseType(typeof(Card), 200)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult<CardItem>> GetById(int id)
+		public async Task<ActionResult<Card>> GetById(int id)
 		{
-			var card = await _context.CardItems.FindAsync(id);
+			var card = await _context.Cards.FindAsync(id);
 			if(card == null)
 			{
 				return NotFound();
@@ -42,9 +41,9 @@ namespace Flashcard.Web.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody]CardItem item)
+		public async Task<IActionResult> Create([FromBody]Card item)
 		{
-			await _context.CardItems.AddAsync(item);
+			await _context.Cards.AddAsync(item);
 			await _context.SaveChangesAsync();
 
 			return CreatedAtRoute("GetCard", new { id = item.Id }, item);
@@ -53,9 +52,9 @@ namespace Flashcard.Web.API.Controllers
 		[HttpPut("{id}")]
 		[ProducesResponseType(204)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult> Update(int id, [FromBody] CardItem item)
+		public async Task<ActionResult> Update(int id, [FromBody] Card item)
 		{
-			var card = await _context.CardItems.FindAsync(id);
+			var card = await _context.Cards.FindAsync(id);
 			if (card == null)
 			{
 				return NotFound();
@@ -73,28 +72,18 @@ namespace Flashcard.Web.API.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult> Delete(int id)
 		{
-			var card = await _context.CardItems.FindAsync(id);
+			var card = await _context.Cards.FindAsync(id);
 			if (card == null)
 			{
 				return NotFound();
 			}
 
-			_context.CardItems.Remove(card);
+			_context.Cards.Remove(card);
 			await _context.SaveChangesAsync();
 
 			return NoContent();
 		}
 
-		private void LoadDefaultItems()
-		{
-			if(_context.CardItems.Count() == 0)
-			{
-				_context.CardItems.AddRangeAsync(
-				new CardItem() { Name = "AA", Description = "AA AA" },
-				new CardItem() { Name = "BB", Description = "BB BB" });
-				// save
-				_context.SaveChangesAsync();
-			}
-		}
+		
 	}
 }
