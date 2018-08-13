@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>Flashcard.Services</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Flashcard.Models\Flashcard.Models.csproj" />
+    <ProjectReference Include="..\Flashcard.Repositories\Flashcard.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
