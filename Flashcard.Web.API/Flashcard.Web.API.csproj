@@ -19,6 +19,7 @@
   <ItemGroup>
 	<ProjectReference Include="..\Flashcard.Models\Flashcard.Models.csproj" />
 	<ProjectReference Include="..\Flashcard.Repositories\Flashcard.Repositories.csproj" />
+	<ProjectReference Include="..\Flashcard.Services\Flashcard.Services.csproj" />
   </ItemGroup>
 
 </Project>

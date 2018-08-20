@@ -16,7 +16,7 @@ namespace Flashcard.Services
 			_cardRepository = cardRepository;
 		}
 
-		public async Task<IEnumerable<Card>> ListCards()
+		public async Task<IEnumerable<Card>> ListCardsAsync()
 		{
 			return await Task.Run(() => _cardRepository.GetAll());
 		}
@@ -26,9 +26,14 @@ namespace Flashcard.Services
 			return await _cardRepository.GetAsync(id);
 		}
 
-		public async Task<bool> UpdateCardItem(int id, Card phoneToCard)
+		public async Task<bool> UpdateCardItemAsync(int id, Card phoneToCard)
 		{
-			_cardRepository.Update(phoneToCard);
+			var card = await _cardRepository.GetAsync(id);
+
+			card.Name = phoneToCard.Name;
+			card.Description = phoneToCard.Description;
+
+			_cardRepository.Update(card);
 			await _cardRepository.CommitAsync();
 			return true;
 		}
@@ -40,7 +45,7 @@ namespace Flashcard.Services
 			return true;
 		}
 
-		public async Task<bool> DeleteCardItem(Card phoneToCard)
+		public async Task<bool> DeleteCardItemAsync(Card phoneToCard)
 		{
 			_cardRepository.Delete(phoneToCard);
 			await _cardRepository.CommitAsync();

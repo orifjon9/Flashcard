@@ -1,6 +1,7 @@
 ﻿using Flashcard.Models;
 using Flashcard.Models.Context;
 using Flashcard.Repositories;
+using Flashcard.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,18 @@ namespace Flashcard.Web.API.Controllers
 	[ApiController]
 	public class CardsController : ControllerBase
 	{
-		private readonly ICardRepository _repository;
+		private readonly ICardService _service;
 
-		public CardsController(ICardRepository repository)
+		public CardsController(ICardService service)
 		{
-			this._repository = repository;
+			this._service = service;
 		}
 
 		// GET api/cards
 		[HttpGet]
 		public ActionResult Get()
 		{
-			return Ok(_repository.GetAll());
+			return Ok(_service.ListCardsAsync());
 		}
 
 		// Get api/cards/{id}
@@ -33,7 +34,7 @@ namespace Flashcard.Web.API.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<Card>> GetById(int id)
 		{
-			var card = await _repository.GetAsync(id);
+			var card = await _service.GetCardAsync(id);
 			if(card == null)
 			{
 				return NotFound();
@@ -44,8 +45,7 @@ namespace Flashcard.Web.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody]Card item)
 		{
-			await _repository.AddAsync(item);
-			await _repository.CommitAsync();
+			await _service.CreateCardItemAsync(item);
 
 			return CreatedAtRoute("GetCard", new { id = item.Id }, item);
 		}
@@ -55,15 +55,13 @@ namespace Flashcard.Web.API.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult> Update(int id, [FromBody] Card item)
 		{
-			var card = await _repository.GetAsync(id);
+			var card = await _service.GetCardAsync(id);
 			if (card == null)
 			{
 				return NotFound();
 			}
-
-			card.Name = item.Name;
-			card.Description = item.Description;
-			await _repository.CommitAsync();
+			
+			await _service.UpdateCardItemAsync(id, card);
 
 			return NoContent();
 		}
@@ -73,14 +71,13 @@ namespace Flashcard.Web.API.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult> Delete(int id)
 		{
-			var card = await _repository.GetAsync(id);
+			var card = await _service.GetCardAsync(id);
 			if (card == null)
 			{
 				return NotFound();
 			}
 
-			_repository.Delete(card);
-			await _repository.CommitAsync();
+			await _service.DeleteCardItemAsync(card);
 
 			return NoContent();
 		}
