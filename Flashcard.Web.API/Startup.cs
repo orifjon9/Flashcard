@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Flashcard.Models.Context;
 using Flashcard.Repositories;
 using Flashcard.Repositories.Persistence;
+using Flashcard.Services.Interfaces;
+using Flashcard.Services;
 
 namespace Flashcard.Web.API
 {
@@ -30,9 +32,10 @@ namespace Flashcard.Web.API
         public void ConfigureServices(IServiceCollection services)
         {
 			services.AddDbContext<FlashcardContext>(opt => opt.UseInMemoryDatabase("Flashcard"));
-
+			
 			services.AddScoped<ICardRepository, CardRepository>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddScoped<ICardService, CardService>();
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
