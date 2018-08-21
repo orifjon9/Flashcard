@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>Flashcard.Services</RootNamespace>
+	  <DebugType>Full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>

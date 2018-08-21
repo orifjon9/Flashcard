@@ -23,9 +23,9 @@ namespace Flashcard.Web.API.Controllers
 
 		// GET api/cards
 		[HttpGet]
-		public ActionResult Get()
+		public ActionResult<IEnumerable<Card>> Get()
 		{
-			return Ok(_service.ListCardsAsync());
+			return Ok(_service.ListCardsAsync().Result);
 		}
 
 		// Get api/cards/{id}
@@ -43,7 +43,7 @@ namespace Flashcard.Web.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody]Card item)
+		public async Task<ActionResult<Card>> Create([FromBody]Card item)
 		{
 			await _service.CreateCardItemAsync(item);
 
@@ -81,7 +81,5 @@ namespace Flashcard.Web.API.Controllers
 
 			return NoContent();
 		}
-
-		
 	}
 }

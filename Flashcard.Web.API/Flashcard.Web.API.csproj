@@ -2,6 +2,7 @@
 
   <PropertyGroup>
 	<TargetFramework>netcoreapp2.1</TargetFramework>
+	  <DebugType>Full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +13,7 @@
 	  <PackageReference Include="Microsoft.AspNetCore.App" />
 	  <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+	  <PackageReference Include="Moq" Version="4.9.0" />
 	  <PackageReference Include="NSwag.AspNetCore" Version="11.17.21" />
 	  <PackageReference Include="NJsonSchema" Version="9.10.64" />
   </ItemGroup>
