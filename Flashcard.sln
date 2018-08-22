@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Repositories", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Services", "Flashcard.Services\Flashcard.Services.csproj", "{C4C4DE6F-DC52-4E7A-85CB-366F4DCE8E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcard.Web.API.Tests", "Flashcard.Web.API.Tests\Flashcard.Web.API.Tests.csproj", "{A550D639-DE5F-4898-B1AC-23AEC13B6335}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Web.UnitTests", "Flashcard.Web.API.Tests\Flashcard.Web.UnitTests.csproj", "{A550D639-DE5F-4898-B1AC-23AEC13B6335}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

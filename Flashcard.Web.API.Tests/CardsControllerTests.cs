@@ -13,13 +13,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Flashcard.Web.API.Tests
 {
-	public class CardsControllerTest
+	public class CardsControllerTests
 	{
 		private readonly Mock<ICardService> _mockCardService;
 		private const int NotFoundCode = 404;
 		private const int NoContentCode = 204;
 
-		public CardsControllerTest()
+		public CardsControllerTests()
 		{
 			_mockCardService = new Mock<ICardService>();
 		}
