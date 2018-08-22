@@ -11,7 +11,7 @@ using Flashcard.Web.API.Controllers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Flashcard.Web.API.Tests
+namespace Flashcard.Web.UnitTest.Tests
 {
 	public class CardsControllerTests
 	{
