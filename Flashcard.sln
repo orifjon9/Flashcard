@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Services", "Flash
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Web.UnitTest.Tests", "Flashcard.Web.API.Tests\Flashcard.Web.UnitTest.Tests.csproj", "{A550D639-DE5F-4898-B1AC-23AEC13B6335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcard.Web.Integration.Tests", "Flashcard.Web.Integration.Tests\Flashcard.Web.Integration.Tests.csproj", "{0FF1DD18-CFA9-4208-8F94-5A1B41729D71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcard.Web.Integration.Tests", "Flashcard.Web.Integration.Tests\Flashcard.Web.Integration.Tests.csproj", "{0FF1DD18-CFA9-4208-8F94-5A1B41729D71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcard.ViewModels", "Flashcard.ViewModels\Flashcard.ViewModels.csproj", "{F7EE8426-17CB-455A-BD10-4DB0A580DB63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{0FF1DD18-CFA9-4208-8F94-5A1B41729D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FF1DD18-CFA9-4208-8F94-5A1B41729D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FF1DD18-CFA9-4208-8F94-5A1B41729D71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7EE8426-17CB-455A-BD10-4DB0A580DB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7EE8426-17CB-455A-BD10-4DB0A580DB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7EE8426-17CB-455A-BD10-4DB0A580DB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7EE8426-17CB-455A-BD10-4DB0A580DB63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
