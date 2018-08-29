@@ -1,4 +1,4 @@
-﻿using Flashcard.Models;
+﻿using Flashcard.ViewModels;
 using Flashcard.Models.Context;
 using Flashcard.Repositories;
 using Flashcard.Services.Interfaces;
@@ -23,16 +23,16 @@ namespace Flashcard.Web.API.Controllers
 
 		// GET api/cards
 		[HttpGet]
-		public ActionResult<IEnumerable<Card>> Get()
+		public ActionResult<IEnumerable<CardViewModel>> Get()
 		{
 			return Ok(_service.ListCardsAsync().Result);
 		}
 
 		// Get api/cards/{id}
 		[HttpGet("{id}", Name = "GetCard")]
-		[ProducesResponseType(typeof(Card), 200)]
+		[ProducesResponseType(typeof(CardViewModel), 200)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult<Card>> GetById(int id)
+		public async Task<ActionResult<CardViewModel>> GetById(int id)
 		{
 			var card = await _service.GetCardAsync(id);
 			if(card == null)
@@ -43,17 +43,17 @@ namespace Flashcard.Web.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Card>> Create([FromBody]Card item)
+		public async Task<ActionResult<CardViewModel>> Create([FromBody]CardViewModel cardToCreate)
 		{
-			await _service.CreateCardItemAsync(item);
+			await _service.CreateCardItemAsync(cardToCreate);
 
-			return CreatedAtRoute("GetCard", new { id = item.Id }, item);
+			return CreatedAtRoute("GetCard", new { id = cardToCreate.Id }, cardToCreate);
 		}
 
 		[HttpPut("{id}")]
 		[ProducesResponseType(204)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult> Update(int id, [FromBody] Card item)
+		public async Task<ActionResult> Update(int id, [FromBody] CardViewModel cartToUpdate)
 		{
 			var card = await _service.GetCardAsync(id);
 			if (card == null)
@@ -61,7 +61,7 @@ namespace Flashcard.Web.API.Controllers
 				return NotFound();
 			}
 			
-			await _service.UpdateCardItemAsync(id, card);
+			await _service.UpdateCardItemAsync(id, cartToUpdate);
 
 			return NoContent();
 		}

@@ -22,8 +22,10 @@ namespace Flashcard.Repositories.Persistence
 				this.AddAsync(new Card() { Name = "AA", Description = "AA AA" });
 				this.AddAsync(new Card() { Name = "BB", Description = "BB BB" });
 				// save
-				this.CommitAsync();
+				this.Commit();
 			}
 		}
+
+		public async Task<Card> GetAsync(int id) => await GetAsync(f => f.Id == id);
 	}
 }

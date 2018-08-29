@@ -1,4 +1,4 @@
-﻿using Flashcard.Models;
+﻿using Flashcard.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +8,11 @@ namespace Flashcard.Services.Interfaces
 {
 	public interface ICardService
 	{
-		Task<IEnumerable<Card>> ListCardsAsync();
-		Task<Card> GetCardAsync(int id);
+		Task<IEnumerable<CardViewModel>> ListCardsAsync();
+		Task<CardViewModel> GetCardAsync(int id);
 
-		Task<bool> CreateCardItemAsync(Card phoneToCard);
-		Task<bool> UpdateCardItemAsync(int id, Card phoneToCard);
-		Task<bool> DeleteCardItemAsync(Card phoneToCard);
+		Task<bool> CreateCardItemAsync(CardViewModel cartToCreate);
+		Task<bool> UpdateCardItemAsync(int id, CardViewModel cardToUpdate);
+		Task<bool> DeleteCardItemAsync(CardViewModel cardToDelete);
 	}
 }

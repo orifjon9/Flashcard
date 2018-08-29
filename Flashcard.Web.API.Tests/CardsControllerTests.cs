@@ -1,5 +1,4 @@
-﻿using Flashcard.Models;
-using Flashcard.Services;
+﻿using Flashcard.Services;
 using Flashcard.Services.Interfaces;
 using Moq;
 using System;
@@ -10,6 +9,7 @@ using Xunit;
 using Flashcard.Web.API.Controllers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Flashcard.ViewModels;
 
 namespace Flashcard.Web.UnitTest.Tests
 {
@@ -39,7 +39,7 @@ namespace Flashcard.Web.UnitTest.Tests
 
 			// Assert
 			var actionResult = Assert.IsType<OkObjectResult>(result.Result);
-			var model = Assert.IsAssignableFrom<IEnumerable<Card>>(actionResult.Value);
+			var model = Assert.IsAssignableFrom<IEnumerable<CardViewModel>>(actionResult.Value);
 
 			// Validation result's count
 			Assert.Equal(model.Count(), lists.Count());
@@ -49,7 +49,7 @@ namespace Flashcard.Web.UnitTest.Tests
 		public void Create_ReturnsAOkObjectResult_WithACardItem()
 		{
 			var card = GetSingleCardItem1();
-			_mockCardService.Setup(x => x.CreateCardItemAsync(It.IsAny<Card>()))
+			_mockCardService.Setup(x => x.CreateCardItemAsync(It.IsAny<CardViewModel>()))
 				.Returns(Task.FromResult(true));
 
 			var cardController = new CardsController(_mockCardService.Object);
@@ -59,7 +59,7 @@ namespace Flashcard.Web.UnitTest.Tests
 
 			// Assert
 			var actionResult = Assert.IsType<CreatedAtRouteResult>(result.Result);
-			var model = Assert.IsAssignableFrom<Card>(actionResult.Value);
+			var model = Assert.IsAssignableFrom<CardViewModel>(actionResult.Value);
 
 			// Validation Ids
 			Assert.True(model.Id  == card.Id);
@@ -79,7 +79,7 @@ namespace Flashcard.Web.UnitTest.Tests
 
 			// Assert
 			var actionResult = Assert.IsType<OkObjectResult>(result.Result);
-			var model = Assert.IsAssignableFrom<Card>(actionResult.Value);
+			var model = Assert.IsAssignableFrom<CardViewModel>(actionResult.Value);
 
 			// Validate values
 			Assert.Equal(model, card);
@@ -89,7 +89,7 @@ namespace Flashcard.Web.UnitTest.Tests
 		public void GetById_ReturnsANotFoundResult_WithEmptyValue()
 		{
 			_mockCardService.Setup(x => x.GetCardAsync(It.IsAny<int>()))
-				.Returns(Task.FromResult((Card)null));
+				.Returns(Task.FromResult((CardViewModel)null));
 
 			var controller = new CardsController(_mockCardService.Object);
 
@@ -109,7 +109,7 @@ namespace Flashcard.Web.UnitTest.Tests
 			_mockCardService.Setup(x => x.GetCardAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(card));
 
-			_mockCardService.Setup(x => x.UpdateCardItemAsync(It.IsAny<int>(), It.IsAny<Card>()))
+			_mockCardService.Setup(x => x.UpdateCardItemAsync(It.IsAny<int>(), It.IsAny<CardViewModel>()))
 				.Returns(Task.FromResult(true));
 
 			var controller = new CardsController(_mockCardService.Object);
@@ -129,7 +129,7 @@ namespace Flashcard.Web.UnitTest.Tests
 		{
 			var card = GetSingleCardItem2();
 			_mockCardService.Setup(x => x.GetCardAsync(It.IsAny<int>()))
-				.Returns(Task.FromResult((Card)null));
+				.Returns(Task.FromResult((CardViewModel)null));
 
 			var controller = new CardsController(_mockCardService.Object);
 
@@ -150,7 +150,7 @@ namespace Flashcard.Web.UnitTest.Tests
 			_mockCardService.Setup(x => x.GetCardAsync(It.IsAny<int>()))
 				.Returns(Task.FromResult(card));
 
-			_mockCardService.Setup(x => x.DeleteCardItemAsync(It.IsAny<Card>()))
+			_mockCardService.Setup(x => x.DeleteCardItemAsync(It.IsAny<CardViewModel>()))
 				.Returns(Task.FromResult(true));
 
 			var controller = new CardsController(_mockCardService.Object);
@@ -170,7 +170,7 @@ namespace Flashcard.Web.UnitTest.Tests
 		{
 			var card = GetSingleCardItem1();
 			_mockCardService.Setup(x => x.GetCardAsync(It.IsAny<int>()))
-				.Returns(Task.FromResult((Card)null));
+				.Returns(Task.FromResult((CardViewModel)null));
 
 			var controller = new CardsController(_mockCardService.Object);
 
@@ -184,22 +184,22 @@ namespace Flashcard.Web.UnitTest.Tests
 			Assert.Equal(actionResult.StatusCode, NotFoundCode);
 		}
 
-		private IEnumerable<Card> GetSingleCardItems()
+		private IEnumerable<CardViewModel> GetSingleCardItems()
 		{
-			return (new List<Card>() {
+			return (new List<CardViewModel>() {
 					GetSingleCardItem1(),
 					GetSingleCardItem2()})
 				.AsEnumerable();
 		}
 
-		private Card GetSingleCardItem1()
+		private CardViewModel GetSingleCardItem1()
 		{
-			return new Card() { Id = 1, Name = "Test Card", Description = "Description Card" };
+			return new CardViewModel() { Id = 1, Name = "Test Card", Description = "Description Card" };
 		}
 
-		private Card GetSingleCardItem2()
+		private CardViewModel GetSingleCardItem2()
 		{
-			return new Card() { Id = 2, Name = "Test Card2", Description = "Description Card" };
+			return new CardViewModel() { Id = 2, Name = "Test Card2", Description = "Description Card" };
 		}
 
 	}

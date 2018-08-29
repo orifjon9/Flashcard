@@ -16,6 +16,7 @@ using Flashcard.Repositories;
 using Flashcard.Repositories.Persistence;
 using Flashcard.Services.Interfaces;
 using Flashcard.Services;
+using AutoMapper;
 
 namespace Flashcard.Web.API
 {
@@ -36,6 +37,8 @@ namespace Flashcard.Web.API
 			services.AddScoped<ICardRepository, CardRepository>();
 			services.AddScoped<ICardService, CardService>();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

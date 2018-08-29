@@ -5,6 +5,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Flashcard.Repositories.Persistence
 {
@@ -32,9 +33,9 @@ namespace Flashcard.Repositories.Persistence
 			_dbContext.SaveChanges();
 		}
 
-		public Task CommitAsync()
+		public async Task<int> CommitAsync()
 		{
-			return _dbContext.SaveChangesAsync();
+			return await _dbContext.SaveChangesAsync();
 		}
 
 		public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
@@ -42,29 +43,27 @@ namespace Flashcard.Repositories.Persistence
 			return _dbContext.Set<TEntity>().Where(predicate);
 		}
 
-		public TEntity Get(int id)
+		public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
 		{
-			return _dbContext.Set<TEntity>().Find(id);
+			return await _dbContext.Set<TEntity>().AsNoTracking().FirstAsync(predicate);
 		}
 
-		public IEnumerable<TEntity> GetAll()
+		public async Task<IEnumerable<TEntity>> GetAllAsync()
 		{
-			return _dbContext.Set<TEntity>().ToList();
+			return await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync();
 		}
 
-		public Task<TEntity> GetAsync(int id)
-		{
-			return _dbContext.Set<TEntity>().FindAsync(id);
-		}
 
 		public void Update(TEntity entity)
 		{
-			_dbContext.Set<TEntity>().Update(entity);
+			_dbContext.Set<TEntity>().Attach(entity);
+			_dbContext.Entry(entity).State = EntityState.Modified;
 		}
 
 		public void Delete(TEntity entity)
 		{
-			_dbContext.Set<TEntity>().Remove(entity);
+			_dbContext.Set<TEntity>().Attach(entity);
+			_dbContext.Entry(entity).State = EntityState.Deleted;
 		}
 	}
 }

@@ -8,11 +8,10 @@ namespace Flashcard.Repositories
 {
 	public interface IRepository<TEntity> where TEntity : class
 	{
-		IEnumerable<TEntity> GetAll();
+		Task<IEnumerable<TEntity>> GetAllAsync();
 		IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
-		TEntity Get(int id);
-		Task<TEntity> GetAsync(int id);
+		Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate);
 
 		void Add(TEntity entity);
 		Task AddAsync(TEntity entity);
@@ -20,6 +19,6 @@ namespace Flashcard.Repositories
 		void Delete(TEntity entity);
 
 		void Commit();
-		Task CommitAsync();
+		Task<int> CommitAsync();
 	}
 }

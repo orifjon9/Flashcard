@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Flashcard.Models\Flashcard.Models.csproj" />
     <ProjectReference Include="..\Flashcard.Repositories\Flashcard.Repositories.csproj" />
+    <ProjectReference Include="..\Flashcard.ViewModels\Flashcard.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

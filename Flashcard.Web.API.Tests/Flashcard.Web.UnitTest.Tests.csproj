@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Flashcard.Services\Flashcard.Services.csproj" />
+    <ProjectReference Include="..\Flashcard.ViewModels\Flashcard.ViewModels.csproj" />
     <ProjectReference Include="..\Flashcard.Web.API\Flashcard.Web.API.csproj" />
   </ItemGroup>
 
