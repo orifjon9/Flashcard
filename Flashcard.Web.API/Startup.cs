@@ -51,6 +51,21 @@ namespace Flashcard.Web.API
 						ValidAudience = configurationService.Issuer,
 						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configurationService.SecurityKey))
 					};
+					confgOptions.Events = new JwtBearerEvents
+					{
+						OnAuthenticationFailed = context =>
+						{
+							Console.WriteLine("OnAuthenticationFailed: " +
+								context.Exception.Message);
+							return Task.CompletedTask;
+						},
+						OnTokenValidated = context =>
+						{
+							Console.WriteLine("OnTokenValidated: " +
+								context.SecurityToken);
+							return Task.CompletedTask;
+						}
+					};
 				});
 
 			services.AddSingleton<IConfigurationService>(configurationService);
@@ -74,6 +89,7 @@ namespace Flashcard.Web.API
                 app.UseHsts();
             }
 
+			app.UseAuthentication();
             // app.UseHttpsRedirection();
             app.UseMvc();
         }

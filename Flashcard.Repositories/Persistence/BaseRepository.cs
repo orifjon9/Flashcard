@@ -45,7 +45,7 @@ namespace Flashcard.Repositories.Persistence
 
 		public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
 		{
-			return await _dbContext.Set<TEntity>().AsNoTracking().FirstAsync(predicate);
+			return await _dbContext.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(predicate);
 		}
 
 		public async Task<IEnumerable<TEntity>> GetAllAsync()
