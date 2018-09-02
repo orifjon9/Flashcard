@@ -36,6 +36,7 @@ namespace Flashcard.Web.API
         public void ConfigureServices(IServiceCollection services)
         {
 			services.AddDbContext<FlashcardContext>(opt => opt.UseInMemoryDatabase("Flashcard"));
+			var configurationService = new ConfigurationService(Configuration["Jwt:Key"], Configuration["Jwt:Issuer"]);
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(confgOptions =>
@@ -46,13 +47,13 @@ namespace Flashcard.Web.API
 						ValidateAudience = true,
 						ValidateLifetime = true,
 						ValidateIssuerSigningKey = true,
-						ValidIssuer = Configuration["Jwt:Issuer"],
-						ValidAudience = Configuration["Jwt:Issuer"],
-						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+						ValidIssuer = configurationService.Issuer,
+						ValidAudience = configurationService.Issuer,
+						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configurationService.SecurityKey))
 					};
 				});
 
-
+			services.AddSingleton<IConfigurationService>(configurationService);
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<ICardRepository, CardRepository>();
 			services.AddScoped<ICardService, CardService>();

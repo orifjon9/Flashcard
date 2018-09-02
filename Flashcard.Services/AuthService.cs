@@ -11,6 +11,12 @@ namespace Flashcard.Services
 {
 	public class AuthService : IAuthService
 	{
+		private readonly IConfigurationService configurationService;
+		public AuthService(IConfigurationService service)
+		{
+			configurationService = service;
+		}
+
 		public async Task<UserWithToken> AuthenticateAsync(LoginViewModel loginViewModel)
 		{
 			if("admin".Equals(loginViewModel.Email) && "admin".Equals(loginViewModel.Password))
@@ -30,10 +36,10 @@ namespace Flashcard.Services
 
 		private string BuildToken()
 		{
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryVerySecretKey"));
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configurationService.SecurityKey));
 			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-			var token = new JwtSecurityToken("http://localhost:5000/", "http://localhost:5000/",
+			var token = new JwtSecurityToken(configurationService.Issuer, configurationService.Issuer,
 					expires: DateTime.Now.AddDays(1), 
 					signingCredentials: creds);
 
