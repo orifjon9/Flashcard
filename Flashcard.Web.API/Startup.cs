@@ -72,6 +72,7 @@ namespace Flashcard.Web.API
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<ICardRepository, CardRepository>();
 			services.AddScoped<ICardService, CardService>();
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddAutoMapper();
