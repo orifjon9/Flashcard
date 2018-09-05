@@ -8,7 +8,7 @@ namespace Flashcard.Models
     {
 		public User()
 		{
-			UserRoles = new HashSet<Role>();
+			UserRoles = new HashSet<UserRole>();
 			UserTokens = new HashSet<UserToken>();
 		}
 
@@ -17,7 +17,7 @@ namespace Flashcard.Models
 		public string Email { get; set; }
 		public string Password { get; set; }
 
-		public ICollection<Role> UserRoles { get; set; }
+		public ICollection<UserRole> UserRoles { get; set; }
 		public ICollection<UserToken> UserTokens { get; set; }
 	}
 }

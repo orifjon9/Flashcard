@@ -8,12 +8,12 @@ namespace Flashcard.Models
     {
 		public Role()
 		{
-			UserRoles = new HashSet<User>();
+			UserRoles = new HashSet<UserRole>();
 		}
 
 		public int Id { get; set; }
 		public string Name { get; set; }
 
-		public ICollection<User> UserRoles { get; set; }
+		public ICollection<UserRole> UserRoles { get; set; }
 	}
 }
