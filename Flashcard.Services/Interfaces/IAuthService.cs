@@ -9,5 +9,7 @@ namespace Flashcard.Services.Interfaces
     public interface IAuthService
     {
 		Task<UserWithToken> AuthenticateAsync(LoginViewModel loginViewModel);
+		Task<UserWithToken> SignUpAsync(RegisterViewModel registerViewModel);
+
     }
 }

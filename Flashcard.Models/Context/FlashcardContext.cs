@@ -53,6 +53,22 @@ namespace Flashcard.Models.Context
 				entity.Property(e => e.RefreshToken).HasMaxLength(450).IsRequired();
 				entity.Property(e => e.AccessToken).HasMaxLength(450).IsRequired();
 			});
+
+			// register constant values
+			InitialData();
+		}
+
+		private async void InitialData()
+		{
+			// roles
+			if((await this.Roles.CountAsync()) == 0)
+			{
+				await this.Roles.AddRangeAsync(new Role[] {
+					new Role { Name = "Administrator" },
+					new Role { Name = "User" }
+				});
+				await this.SaveChangesAsync();
+			}
 		}
 	}
 }

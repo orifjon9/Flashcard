@@ -36,6 +36,11 @@ namespace Flashcard.Services
 			return null;
 		}
 
+		public async Task<UserWithToken> SignUpAsync(RegisterViewModel registerViewModel)
+		{
+			return null;
+		}
+
 		private string BuildToken(int userId, string email)
 		{
 			var claims = new List<Claim>()
