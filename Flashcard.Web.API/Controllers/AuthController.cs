@@ -23,7 +23,12 @@ namespace Flashcard.Web.API.Controllers
 		[AllowAnonymous]
 		public async Task<ActionResult<UserWithToken>> SignIn([FromBody] LoginViewModel loginViewModel)
 		{
-			return await _service.AuthenticateAsync(loginViewModel);
+			var result = await _service.AuthenticateAsync(loginViewModel);
+			if(result == null)
+			{
+				return BadRequest();
+			}
+			return Ok(result);
 		}
 
 		[HttpPost("sign-up")]

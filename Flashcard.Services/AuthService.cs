@@ -8,26 +8,34 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Linq;
+using Flashcard.Repositories;
+using AutoMapper;
+using Flashcard.Models;
 
 namespace Flashcard.Services
 {
 	public class AuthService : IAuthService
 	{
-		private readonly IConfigurationService configurationService;
-		public AuthService(IConfigurationService service)
+		private readonly IConfigurationService _configurationService;
+		private readonly IUserRepository _userRepository;
+		private readonly IMapper _mapper;
+		public AuthService(IConfigurationService service, IUserRepository userRepository, IMapper mapper)
 		{
-			configurationService = service;
+			_configurationService = service;
+			_userRepository = userRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<UserWithToken> AuthenticateAsync(LoginViewModel loginViewModel)
 		{
-			if("admin".Equals(loginViewModel.Email) && "admin".Equals(loginViewModel.Password))
+			var user = _userRepository.Find(loginViewModel.Email, loginViewModel.Password);
+			if(user != null)
 			{
 				var task = Task.Run(() => 
 					new UserWithToken
 					{
-						User = new UserViewModel { Id = 1, Email = "orifjon9@gmail.com", UserName = "Orifjon" },
-						Token = BuildToken(1, "orifjon9@gmail.com")
+						User = _mapper.Map<User, UserViewModel>(user),
+						Token = BuildToken(user)
 					});
 
 				return await task;
@@ -41,19 +49,19 @@ namespace Flashcard.Services
 			return null;
 		}
 
-		private string BuildToken(int userId, string email)
+		private string BuildToken(User user)
 		{
 			var claims = new List<Claim>()
 			{
-				new Claim(JwtRegisteredClaimNames.Sub, email),
+				new Claim(JwtRegisteredClaimNames.Sub, user.Email),
 				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 				//new Claim(ClaimTypes.NameIdentifier, userId.ToString())
 			};	
 
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configurationService.SecurityKey));
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configurationService.SecurityKey));
 			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-			var token = new JwtSecurityToken(configurationService.Issuer, configurationService.Issuer,
+			var token = new JwtSecurityToken(_configurationService.Issuer, _configurationService.Issuer,
 					claims: claims,
 					expires: DateTime.Now.AddDays(1), 
 					signingCredentials: creds);

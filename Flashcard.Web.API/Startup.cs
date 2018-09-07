@@ -70,6 +70,7 @@ namespace Flashcard.Web.API
 
 			services.AddSingleton<IConfigurationService>(configurationService);
 			services.AddScoped<IAuthService, AuthService>();
+			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<ICardRepository, CardRepository>();
 			services.AddScoped<ICardService, CardService>();
 
