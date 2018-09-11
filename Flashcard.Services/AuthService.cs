@@ -31,14 +31,7 @@ namespace Flashcard.Services
 			var user = _userRepository.Find(loginViewModel.Email, loginViewModel.Password);
 			if(user != null)
 			{
-				var task = Task.Run(() => 
-					new UserWithToken
-					{
-						User = _mapper.Map<User, UserViewModel>(user),
-						Token = BuildToken(user)
-					});
-
-				return await task;
+				return await GenerateUserWithToken(user);
 			}
 
 			return null;
@@ -46,7 +39,29 @@ namespace Flashcard.Services
 
 		public async Task<UserWithToken> SignUpAsync(RegisterViewModel registerViewModel)
 		{
-			return null;
+			var user = new User
+			{
+				FirstName = registerViewModel.FirstName,
+				LastName = registerViewModel.LastName,
+				Email = registerViewModel.Email,
+				Password = registerViewModel.Password,
+				Birthday = registerViewModel.Birthday
+			};
+			await _userRepository.Register(user);
+			await _userRepository.CommitAsync();
+			return await GenerateUserWithToken(user);
+		}
+
+		private async Task<UserWithToken> GenerateUserWithToken(User user)
+		{
+			var task = Task.Run(() =>
+					new UserWithToken
+					{
+						User = _mapper.Map<User, UserViewModel>(user),
+						Token = BuildToken(user)
+					});
+
+			return await task;
 		}
 
 		private string BuildToken(User user)

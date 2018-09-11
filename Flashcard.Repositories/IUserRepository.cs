@@ -9,5 +9,7 @@ namespace Flashcard.Repositories
     public interface IUserRepository: IRepository<User>
     {
 		User Find(string email, string password);
-    }
+		Task Register(User user);
+
+	}
 }
